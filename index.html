@@ -322,11 +322,20 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 51%;
-      background: linear-gradient(180deg, #6b3a42 0%, #4a252c 40%, #3a1c22 100%);
+      width: 52%;
       z-index: 5;
-      transition: transform 1.8s cubic-bezier(0.65, 0, 0.35, 1);
-      box-shadow: inset 0 0 40px rgba(0,0,0,0.35);
+      transition: transform 2.2s cubic-bezier(0.77, 0, 0.175, 1);
+      background:
+        linear-gradient(105deg,
+          #5c2e36 0%,
+          #7a3f4a 15%,
+          #8b4a55 30%,
+          #6e3842 50%,
+          #5c2e36 70%,
+          #4a252c 100%);
+      box-shadow:
+        inset 0 0 60px rgba(0,0,0,0.4),
+        0 0 30px rgba(0,0,0,0.25);
     }
     .curtain::before {
       content: '';
@@ -335,28 +344,47 @@
       background:
         repeating-linear-gradient(
           90deg,
-          transparent,
-          transparent 18px,
-          rgba(255,255,255,0.03) 18px,
-          rgba(255,255,255,0.03) 20px
-        );
+          transparent 0px,
+          transparent 14px,
+          rgba(255,255,255,0.04) 14px,
+          rgba(255,255,255,0.04) 16px
+        ),
+        linear-gradient(180deg,
+          rgba(232, 181, 120, 0.12) 0%,
+          transparent 18%,
+          transparent 82%,
+          rgba(0,0,0,0.25) 100%);
       pointer-events: none;
+    }
+    .curtain::after {
+      content: '✦';
+      position: absolute;
+      top: 50%;
+      font-size: 1.1rem;
+      color: rgba(232, 213, 163, 0.35);
+      transform: translateY(-50%);
     }
     .curtain.left {
       left: 0;
-      border-right: 3px solid rgba(196, 163, 90, 0.5);
+      border-right: 2px solid rgba(212, 175, 90, 0.55);
       transform-origin: left center;
+    }
+    .curtain.left::after {
+      right: 18px;
     }
     .curtain.right {
       right: 0;
-      border-left: 3px solid rgba(196, 163, 90, 0.5);
+      border-left: 2px solid rgba(212, 175, 90, 0.55);
       transform-origin: right center;
     }
+    .curtain.right::after {
+      left: 18px;
+    }
     .reveal-overlay.opened .curtain.left {
-      transform: translateX(-102%);
+      transform: translateX(-105%) skewY(-1.5deg);
     }
     .reveal-overlay.opened .curtain.right {
-      transform: translateX(102%);
+      transform: translateX(105%) skewY(1.5deg);
     }
 
     .curtain-rod {
@@ -364,11 +392,32 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 14px;
-      background: linear-gradient(90deg, #c4a35a, #e8d5a3, #c4a35a);
+      height: 16px;
+      background: linear-gradient(90deg,
+        #a88b3e 0%,
+        #e8d5a3 20%,
+        #f5e6c8 50%,
+        #e8d5a3 80%,
+        #a88b3e 100%);
       z-index: 6;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      box-shadow:
+        0 4px 16px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.35);
     }
+    .curtain-rod::before,
+    .curtain-rod::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #f5e6c8, #a88b3e);
+      transform: translateY(-50%);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    }
+    .curtain-rod::before { left: 8px; }
+    .curtain-rod::after { right: 8px; }
 
     .reveal-content {
       position: relative;
@@ -556,20 +605,20 @@
 
         <div class="gallery-grid">
           <div class="gallery-item">
-            <div class="placeholder-photo">🤍<span>Foto 1</span></div>
-            <div class="gallery-caption">Pertama kali …</div>
+            <img src="memori1.jpg" alt="Memory 1" />
+            <div class="gallery-caption">Senyummu</div>
           </div>
           <div class="gallery-item">
-            <div class="placeholder-photo">🤍<span>Foto 2</span></div>
-            <div class="gallery-caption">Tawa kita</div>
+            <img src="memori2.jpg" alt="Memory 2" />
+            <div class="gallery-caption">Dekat hatiku</div>
           </div>
           <div class="gallery-item">
-            <div class="placeholder-photo">🤍<span>Foto 3</span></div>
-            <div class="gallery-caption">Momen tenang</div>
+            <img src="memori3.jpg" alt="Memory 3" />
+            <div class="gallery-caption">Kita berdua</div>
           </div>
           <div class="gallery-item">
-            <div class="placeholder-photo">🤍<span>Foto 4</span></div>
-            <div class="gallery-caption">Bersama</div>
+            <img src="memori4.jpg" alt="Memory 4" />
+            <div class="gallery-caption">Bersama selamanya</div>
           </div>
         </div>
 
@@ -847,29 +896,63 @@
     }, 400);
 
     function celebrate() {
+      // 1) Animasi confetti ulang tahun dari atas (tetap ada)
+      const canvas = document.getElementById('confetti');
+      const ctx = canvas.getContext('2d');
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      const colors = ['#b76e79','#c4a35a','#e8d5a3','#9a5560','#f5e6e0','#d4a5a5','#ff9eb5','#fff'];
+      const pieces = Array.from({length: 180}, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * -canvas.height - 20,
+        w: 5 + Math.random() * 9,
+        h: 7 + Math.random() * 11,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speed: 2.2 + Math.random() * 4,
+        rot: Math.random() * 360,
+        rotSpeed: -5 + Math.random() * 10
+      }));
+
+      function drawConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+        pieces.forEach(p => {
+          p.y += p.speed;
+          p.rot += p.rotSpeed;
+          if (p.y < canvas.height + 40) alive = true;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot * Math.PI / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+        if (alive) requestAnimationFrame(drawConfetti);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      drawConfetti();
+
+      // 2) Buka gorden elegan + foto kita
       const overlay = document.getElementById('revealOverlay');
       const heartsBox = document.getElementById('revealHearts');
 
-      // Isi hati mengambang
       heartsBox.innerHTML = '';
-      const symbols = ['♥', '♡', '❀', '✦'];
-      for (let i = 0; i < 18; i++) {
+      const symbols = ['♥', '♡', '❀', '✦', '🌸'];
+      for (let i = 0; i < 22; i++) {
         const s = document.createElement('span');
         s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
         s.style.left = Math.random() * 100 + '%';
         s.style.animationDuration = (4 + Math.random() * 5) + 's';
-        s.style.animationDelay = (Math.random() * 3) + 's';
-        s.style.fontSize = (12 + Math.random() * 14) + 'px';
+        s.style.animationDelay = (Math.random() * 3.5) + 's';
+        s.style.fontSize = (12 + Math.random() * 16) + 'px';
         heartsBox.appendChild(s);
       }
 
-      // Tampilkan overlay lalu buka gorden
       overlay.classList.add('active');
-      // Force reflow
       void overlay.offsetWidth;
       setTimeout(() => {
         overlay.classList.add('opened');
-      }, 80);
+      }, 120);
     }
 
     function closeReveal() {
@@ -877,7 +960,7 @@
       overlay.classList.remove('opened');
       setTimeout(() => {
         overlay.classList.remove('active');
-      }, 900);
+      }, 1000);
     }
 
     createHearts();
