@@ -896,46 +896,10 @@
     }, 400);
 
     function celebrate() {
-      // 1) Animasi confetti ulang tahun dari atas (tetap ada)
-      const canvas = document.getElementById('confetti');
-      const ctx = canvas.getContext('2d');
-      canvas.width = innerWidth;
-      canvas.height = innerHeight;
-      const colors = ['#b76e79','#c4a35a','#e8d5a3','#9a5560','#f5e6e0','#d4a5a5','#ff9eb5','#fff'];
-      const pieces = Array.from({length: 180}, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * -canvas.height - 20,
-        w: 5 + Math.random() * 9,
-        h: 7 + Math.random() * 11,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        speed: 2.2 + Math.random() * 4,
-        rot: Math.random() * 360,
-        rotSpeed: -5 + Math.random() * 10
-      }));
-
-      function drawConfetti() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        let alive = false;
-        pieces.forEach(p => {
-          p.y += p.speed;
-          p.rot += p.rotSpeed;
-          if (p.y < canvas.height + 40) alive = true;
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate(p.rot * Math.PI / 180);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-          ctx.restore();
-        });
-        if (alive) requestAnimationFrame(drawConfetti);
-        else ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-      drawConfetti();
-
-      // 2) Buka gorden elegan + foto kita
       const overlay = document.getElementById('revealOverlay');
       const heartsBox = document.getElementById('revealHearts');
 
+      // Isi hati mengambang
       heartsBox.innerHTML = '';
       const symbols = ['♥', '♡', '❀', '✦', '🌸'];
       for (let i = 0; i < 22; i++) {
@@ -948,11 +912,55 @@
         heartsBox.appendChild(s);
       }
 
+      // 1) Buka gorden dulu
       overlay.classList.add('active');
       void overlay.offsetWidth;
       setTimeout(() => {
         overlay.classList.add('opened');
-      }, 120);
+      }, 80);
+
+      // 2) Setelah gorden terbuka (~2.3 detik), confetti jatuh dari atas di atas foto
+      setTimeout(() => {
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+        canvas.style.zIndex = '110'; // di atas overlay & foto
+
+        const colors = ['#b76e79','#c4a35a','#e8d5a3','#9a5560','#f5e6e0','#d4a5a5','#ff9eb5','#fff'];
+        const pieces = Array.from({length: 200}, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height - 40,
+          w: 5 + Math.random() * 9,
+          h: 7 + Math.random() * 11,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: 2.4 + Math.random() * 4.2,
+          rot: Math.random() * 360,
+          rotSpeed: -5 + Math.random() * 10
+        }));
+
+        function drawConfetti() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          let alive = false;
+          pieces.forEach(p => {
+            p.y += p.speed;
+            p.rot += p.rotSpeed;
+            if (p.y < canvas.height + 50) alive = true;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot * Math.PI / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            ctx.restore();
+          });
+          if (alive) requestAnimationFrame(drawConfetti);
+          else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.zIndex = '30';
+          }
+        }
+        drawConfetti();
+      }, 2300);
     }
 
     function closeReveal() {
@@ -973,3 +981,4 @@
   </script>
 </body>
 </html>
+
