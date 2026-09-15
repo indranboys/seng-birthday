@@ -866,7 +866,7 @@
         musicPlaying = false;
       } else {
         ytPlayer.playVideo();
-        musicBtn.textContent = '🔊';
+        musicBtn.textContent = '🎷';
         musicBtn.classList.add('playing');
         musicPlaying = true;
       }
@@ -880,7 +880,7 @@
       if (ytReady && !musicPlaying && ytPlayer) {
         ytPlayer.playVideo();
         musicPlaying = true;
-        musicBtn.textContent = '🔊';
+        musicBtn.textContent = '🎷';
         musicBtn.classList.add('playing');
       }
       document.body.removeEventListener('click', firstClick);
