@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Happy 27th Birthday • Agithree Ayuningtyas</title>
-  <meta name="description" content="Undangan digital romantis spesial untuk Agithree Ayuningtyas di ulang tahun ke-27." />
+  <meta name="description" content="Seucap pesan romantis spesial dihari ulang tahun untukmu Agithree Ayuningtyas" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -318,17 +318,25 @@
       display: flex;
     }
 
-    /* Gorden gaya kain (mirip PowerPoint Curtains) */
     .curtain {
       position: absolute;
       top: 0;
       bottom: 0;
-      width: 54%;
+      width: 52%;
       z-index: 5;
-      transition: transform 2.4s cubic-bezier(0.65, 0.05, 0.36, 1);
-      overflow: hidden;
+      transition: transform 2.2s cubic-bezier(0.77, 0, 0.175, 1);
+      background:
+        linear-gradient(105deg,
+          #5c2e36 0%,
+          #7a3f4a 15%,
+          #8b4a55 30%,
+          #6e3842 50%,
+          #5c2e36 70%,
+          #4a252c 100%);
+      box-shadow:
+        inset 0 0 60px rgba(0,0,0,0.4),
+        0 0 30px rgba(0,0,0,0.25);
     }
-    /* Lipatan kain vertikal */
     .curtain::before {
       content: '';
       position: absolute;
@@ -336,109 +344,80 @@
       background:
         repeating-linear-gradient(
           90deg,
-          rgba(255,255,255,0.0) 0px,
-          rgba(255,255,255,0.18) 8px,
-          rgba(0,0,0,0.06) 16px,
-          rgba(255,255,255,0.12) 24px,
-          rgba(0,0,0,0.04) 32px,
-          rgba(255,255,255,0.0) 40px
-        );
-      pointer-events: none;
-      z-index: 1;
-    }
-    /* Bayangan bawah + kilau atas */
-    .curtain::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
+          transparent 0px,
+          transparent 14px,
+          rgba(255,255,255,0.04) 14px,
+          rgba(255,255,255,0.04) 16px
+        ),
         linear-gradient(180deg,
-          rgba(255,255,255,0.25) 0%,
-          transparent 12%,
-          transparent 75%,
-          rgba(0,0,0,0.18) 100%);
+          rgba(232, 181, 120, 0.12) 0%,
+          transparent 18%,
+          transparent 82%,
+          rgba(0,0,0,0.25) 100%);
       pointer-events: none;
-      z-index: 2;
     }
-
-    /* Gorden kiri – soft blue-cream (seperti video) */
+    .curtain::after {
+      content: '✦';
+      position: absolute;
+      top: 50%;
+      font-size: 1.1rem;
+      color: rgba(232, 213, 163, 0.35);
+      transform: translateY(-50%);
+    }
     .curtain.left {
       left: 0;
-      background:
-        linear-gradient(105deg,
-          #c5d4e8 0%,
-          #dce6f2 18%,
-          #b8c9de 35%,
-          #e8eef6 55%,
-          #a8bdd4 75%,
-          #d0dceb 100%);
-      box-shadow:
-        inset -12px 0 30px rgba(0,0,0,0.12),
-        4px 0 25px rgba(0,0,0,0.15);
-      border-right: 1px solid rgba(255,255,255,0.4);
+      border-right: 2px solid rgba(212, 175, 90, 0.55);
       transform-origin: left center;
-      border-radius: 0 8% 12% 0 / 0 30% 40% 0;
     }
-
-    /* Gorden kanan – soft rose-cream */
+    .curtain.left::after {
+      right: 18px;
+    }
     .curtain.right {
       right: 0;
-      background:
-        linear-gradient(255deg,
-          #f0d6d0 0%,
-          #f8e8e4 18%,
-          #e8c4bc 35%,
-          #f5e0db 55%,
-          #d4a8a0 75%,
-          #edd5cf 100%);
-      box-shadow:
-        inset 12px 0 30px rgba(0,0,0,0.12),
-        -4px 0 25px rgba(0,0,0,0.15);
-      border-left: 1px solid rgba(255,255,255,0.4);
+      border-left: 2px solid rgba(212, 175, 90, 0.55);
       transform-origin: right center;
-      border-radius: 8% 0 0 12% / 30% 0 0 40%;
     }
-
-    /* Animasi buka – seperti kain ditarik */
+    .curtain.right::after {
+      left: 18px;
+    }
     .reveal-overlay.opened .curtain.left {
-      transform: translateX(-108%) scaleX(0.92);
+      transform: translateX(-105%) skewY(-1.5deg);
     }
     .reveal-overlay.opened .curtain.right {
-      transform: translateX(108%) scaleX(0.92);
+      transform: translateX(105%) skewY(1.5deg);
     }
 
-    /* Tiang gorden */
     .curtain-rod {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 14px;
+      height: 16px;
       background: linear-gradient(90deg,
-        #b8a078 0%,
-        #e8d5a3 25%,
-        #f5ecd0 50%,
-        #e8d5a3 75%,
-        #b8a078 100%);
+        #a88b3e 0%,
+        #e8d5a3 20%,
+        #f5e6c8 50%,
+        #e8d5a3 80%,
+        #a88b3e 100%);
       z-index: 6;
       box-shadow:
-        0 3px 12px rgba(0,0,0,0.35),
-        inset 0 1px 0 rgba(255,255,255,0.45);
+        0 4px 16px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.35);
     }
     .curtain-rod::before,
     .curtain-rod::after {
       content: '';
       position: absolute;
       top: 50%;
-      width: 11px;
-      height: 11px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #f5ecd0, #b8a078);
+      background: radial-gradient(circle at 30% 30%, #f5e6c8, #a88b3e);
       transform: translateY(-50%);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
     }
-    .curtain-rod::before { left: 6px; }
-    .curtain-rod::after { right: 6px; }
+    .curtain-rod::before { left: 8px; }
+    .curtain-rod::after { right: 8px; }
 
     .reveal-content {
       position: relative;
@@ -552,17 +531,20 @@
     <section class="slide active" data-index="0">
       <div class="card">
         <div class="icon-wrap">💌</div>
-        <p class="label">Sebuah Undangan dari Hati</p>
+        <p class="label">Sebuah Pesan dari Hati</p>
+        <p class="label">Untukmu</p>
         <h1 class="main-title">Agithree<br>Ayuningtyas</h1>
         <div class="ornament"><span></span><i>♥</i><span></span></div>
         <p class="message visible" style="margin-top:0.25rem;">
-          Dengan penuh cinta dan rasa hormat,<br>
-          aku mengundangmu untuk membuka<br>
+          Dengan penuh cinta dan rasa syukur,<br>
+          aku mengajakmu untuk membuka<br>
           halaman-halaman kenangan & doa<br>
           di hari istimewamu.
         </p>
-        <p class="date-line">29 Oktober 1999  •  Ulang Tahun ke-27</p>
-        <button class="nav-btn" onclick="nextSlide()">Buka Undangan</button>
+        <p class="date-line">29 Oktober adalah kelahiran kamu</p>
+        <p class="date-line">Baca pelan-pelan ya sayang</p>
+        <p class="date-line">Volumenya dinaikan</p>
+        <button class="nav-btn" onclick="nextSlide()">Silahkan dibuka</button>
       </div>
     </section>
 
@@ -585,7 +567,7 @@
           dan aku bersyukur pada Tuhan<br>
           karena menghadirkanmu di hidupku.
         </p>
-        <button class="nav-btn" onclick="nextSlide()">Lanjut →</button>
+        <button class="nav-btn" onclick="nextSlide()">More →</button>
       </div>
     </section>
 
@@ -609,14 +591,14 @@
         <p class="quote" data-delay="800">
           “Kamu adalah alasan mengapa aku percaya<br>bahwa cinta yang tulus itu nyata.”
         </p>
-        <button class="nav-btn" onclick="nextSlide()">Lanjut →</button>
+        <button class="nav-btn" onclick="nextSlide()">More →</button>
       </div>
     </section>
 
     <!-- SLIDE 3 : Gallery -->
     <section class="slide" data-index="3">
       <div class="card" style="max-width:500px;">
-        <div class="icon-wrap">📷</div>
+        <div class="icon-wrap">🎊</div>
         <p class="label">Core Memories</p>
         <div class="ornament"><span></span><i>✦</i><span></span></div>
         <p class="message" data-delay="0" style="margin-bottom:0.7rem;">
@@ -635,7 +617,7 @@
           </div>
           <div class="gallery-item">
             <img src="memori3.jpg" alt="Memory 3" />
-            <div class="gallery-caption">Kita berdua</div>
+            <div class="gallery-caption">Tingkah lakumu</div>
           </div>
           <div class="gallery-item">
             <img src="memori4.jpg" alt="Memory 4" />
@@ -647,14 +629,14 @@
           Setiap foto di sini adalah bukti<br>
           bahwa kita sudah menempuh banyak perjalanan indah.
         </p>
-        <button class="nav-btn" onclick="nextSlide()">Lanjut →</button>
+        <button class="nav-btn" onclick="nextSlide()">More →</button>
       </div>
     </section>
 
     <!-- SLIDE 4 -->
     <section class="slide" data-index="4">
       <div class="card">
-        <div class="icon-wrap">🙏</div>
+        <div class="icon-wrap">🎀</div>
         <p class="label">Rasa Syukur</p>
         <div class="ornament"><span></span><i>♥</i><span></span></div>
         <p class="message" data-delay="0">
@@ -669,7 +651,7 @@
           Aku tidak butuh versi sempurna darimu.<br>
           Aku hanya butuh <em>kamu</em> — apa adanya.
         </p>
-        <button class="nav-btn" onclick="nextSlide()">Lanjut →</button>
+        <button class="nav-btn" onclick="nextSlide()">More →</button>
       </div>
     </section>
 
@@ -692,7 +674,7 @@
           Dan semoga aku masih diizinkan<br>
           menemanimu merayakan banyak ulang tahun lagi.
         </p>
-        <button class="nav-btn" onclick="nextSlide()">Lanjut →</button>
+        <button class="nav-btn" onclick="nextSlide()">More →</button>
       </div>
     </section>
 
@@ -736,7 +718,7 @@
       <div class="reveal-photo-wrap">
         <img src="foto-kita.jpg" alt="Kita berdua" />
       </div>
-      <p class="reveal-title">Selamat Ulang Tahun</p>
+      <p class="reveal-title">Selamat Ulang Tahun Cintaku</p>
       <p class="reveal-sub">
         Agithree Ayuningtyas<br>
         27 tahun yang indah bersama kita
@@ -884,7 +866,7 @@
         musicPlaying = false;
       } else {
         ytPlayer.playVideo();
-        musicBtn.textContent = '🔊';
+        musicBtn.textContent = '🎷';
         musicBtn.classList.add('playing');
         musicPlaying = true;
       }
@@ -898,7 +880,7 @@
       if (ytReady && !musicPlaying && ytPlayer) {
         ytPlayer.playVideo();
         musicPlaying = true;
-        musicBtn.textContent = '🔊';
+        musicBtn.textContent = '🎷';
         musicBtn.classList.add('playing');
       }
       document.body.removeEventListener('click', firstClick);
@@ -981,7 +963,7 @@
           }
         }
         drawConfetti();
-      }, 2600);
+      }, 2300);
     }
 
     function closeReveal() {
